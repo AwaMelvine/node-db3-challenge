@@ -32,5 +32,10 @@ module.exports = {
     async update(changes, id) {
         const count = await db('schemes').where('id', id).update(changes);
         return (count > 0 ? this.findById(id) : null);
+    },
+
+    async remove(id) {
+        const count = await db('schemes').where('id', id).del();
+        return count;
     }
 };
