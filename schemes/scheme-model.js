@@ -22,5 +22,10 @@ module.exports = {
             .where('steps.scheme_id', id)
             .innerJoin('steps', 'steps.scheme_id', 'schemes.id')
         return steps;
+    },
+
+    async add(scheme) {
+        const [id] = await db("schemes").insert(scheme);
+        return this.findById(id);
     }
 };
