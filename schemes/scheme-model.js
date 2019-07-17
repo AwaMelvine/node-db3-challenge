@@ -27,5 +27,10 @@ module.exports = {
     async add(scheme) {
         const [id] = await db("schemes").insert(scheme);
         return this.findById(id);
+    },
+
+    async update(changes, id) {
+        const count = await db('schemes').where('id', id).update(changes);
+        return (count > 0 ? this.findById(id) : null);
     }
 };
