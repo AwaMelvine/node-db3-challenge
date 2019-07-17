@@ -17,7 +17,10 @@ module.exports = {
         if (!id) {
             return null;
         }
-        const steps = await db("steps").where({ scheme_id: id });
+        const steps = await db.select('steps.id', 'schemes.scheme_name', 'steps.step_number', 'steps.instructions')
+            .from('schemes')
+            .where('steps.scheme_id', id)
+            .innerJoin('steps', 'steps.scheme_id', 'schemes.id')
         return steps;
     }
 };
