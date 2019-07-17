@@ -5,10 +5,19 @@ module.exports = {
         return db("schemes");
     },
 
-    findById(id) {
+    async findById(id) {
         if (!id) {
             return null;
         }
-        return db("schemes").where({ id }).first();
+        const schemes = await db("schemes").where({ id }).first();
+        return schemes;
+    },
+
+    async findSteps(id) {
+        if (!id) {
+            return null;
+        }
+        const steps = await db("steps").where({ scheme_id: id });
+        return steps;
     }
 };
